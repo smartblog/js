@@ -1,3 +1,24 @@
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+var interval = setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+
+var primersCount = 20;
 var primers = [];
 
 var mainIndex = 1;
@@ -15,6 +36,7 @@ function addPrimer(index) {
 
   var ele = document.createElement("div");
   ele.id = `primer-${index}`;
+  ele.className = "column is-3 flex"
   ele.innerHTML = `<h4>Пример ${index}</h4>
                     <p id="p-${index}">
                       <span>${num1}</span><span> * </span><span>${num2}</span><span> = </span>
@@ -37,9 +59,10 @@ function generatePrimers(count) {
   }
 }
 
-generatePrimers(5);
+generatePrimers(primersCount);
 
 function checkPrimers() {
+  clearInterval(interval);
   var answers = [];
   var answer;
   var j;
@@ -47,7 +70,7 @@ function checkPrimers() {
   var trues = 0;
   var falses = 0;
 
-  for (j = 0; j < 5; j++) {
+  for (j = 0; j < primersCount; j++) {
     answer = parseFloat(document.getElementById(`answer-${j+1}`).value);
     answers.push(answer);
 
@@ -74,9 +97,14 @@ function checkPrimers() {
   resultEle.id = "result";
   resultEle.innerHTML = `<p>РЕЗУЛЬТАТ</p>
                           <p class="green">Правильно: ${trues}</p>
-                          <p class="red">Ошибок: ${falses}</p>`
+                          <p class="red">Ошибок: ${falses}</p>
+                          <p>Время: ${totalSeconds} секунд</p>`
 
-  document.getElementById("main").appendChild(resultEle);
+  document.getElementById("results").appendChild(resultEle);
+
+  localStorage.setItem('player', totalSeconds);
+
+  console.log(localStorage.getItem('player'))
 
   // primers.forEach(element => console.log(element));
   // answers.forEach(element => console.log(element));
