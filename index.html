@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <style>
     input {
       width: 40px;
       font-size: 18px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
     p {
@@ -21,11 +29,22 @@
 </head>
 
 <body>
-  <div id="main">
-    
+  <div class="container">
+    <div class="container has-text-centered">
+      <br>
+      <h1 class="title">Генератор примеров ТАБЛИЦА УМНОЖЕНИЙ</h1>
+      <br>
+    </div>
+    <div id="main" class="columns is-multiline">
+      
+    </div>
+    <!-- <button onClick="generatePrimers(5)">Добавить 5 примеров</button> -->
+    <div>
+      <label id="minutes">00</label>:<label id="seconds">00</label>
+    </div>
+    <button class="button" onClick="checkPrimers()">Проверить</button>
+    <div id="results"></div>
   </div>
-  <!-- <button onClick="generatePrimers(5)">Добавить 5 примеров</button> -->
-  <button onClick="checkPrimers()">Проверить</button>
 </body>
 
 
